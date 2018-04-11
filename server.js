@@ -31,7 +31,7 @@ const db = knex({
 app.use(bodyParser.json());
 app.use(cors());
 
-/* databaseStructureExample 
+/* database structure example 
 {
     users: [
         {
@@ -64,6 +64,8 @@ app.get('/profile/:id', (req, res) => { profile.getProfile(req, res, db)})
 
 // image: inscrese # of checked images from a certain user
 app.put('/image', (req, res) => { image.increaseNumberOfEntries(req, res, db)})
+
+app.post('/imageurl', (req, res) => image.handleAPICall(req, res))
 
 
 app.listen(3000, () => {

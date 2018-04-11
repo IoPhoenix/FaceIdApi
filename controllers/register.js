@@ -1,5 +1,10 @@
 const handleRegister = (req, res, db, bcrypt) => {
     const { email, password, name} = req.body;
+
+    if (!email || !password || !name) {
+        return res.status(400).json('Incorrect user credentials');
+    }
+
     const hash = bcrypt.hashSync(password);
 
     /* All queries within a transaction are executed 
