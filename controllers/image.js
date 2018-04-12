@@ -1,7 +1,7 @@
 const Clarifai = require('clarifai');
 
 const app = new Clarifai.App({
-    apiKey: 'MY_API_KEY'
+    apiKey: 'a19866285f4b4c37a0a04fc2c7bd80f0'
 });
 
 const handleAPICall = ((req, res) => {
@@ -21,8 +21,7 @@ const increaseNumberOfEntries = (req, res, db) => {
         .then(entries => {
             res.json(entries[0]);
         })
-        .catch(err => res.status(400).json('Cannot get entries'))
-  ;
+        .catch(err => res.status(400).json('Cannot get entries'));
 }
 
 module.exports = {
