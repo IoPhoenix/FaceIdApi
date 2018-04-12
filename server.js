@@ -17,6 +17,7 @@ const register = require('./controllers/register');
 const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
 const image = require('./controllers/image');
+const avatar = require('./controllers/avatar');
 
 const db = knex({
     client: 'pg',
@@ -39,7 +40,8 @@ app.use(cors());
             name: 'John',
             email: "john@gmail.com",
             entries: 0,
-            joined: new Date()
+            joined: new Date(),
+            avatarUrl: ''
         }
     ], 
     login: [
@@ -65,7 +67,11 @@ app.get('/profile/:id', (req, res) => { profile.getProfile(req, res, db)})
 // image: inscrese # of checked images from a certain user
 app.put('/image', (req, res) => { image.increaseNumberOfEntries(req, res, db)})
 
-app.post('/imageurl', (req, res) => image.handleAPICall(req, res))
+// detect face with Clarifai API
+app.post('/imageurl', (req, res) => image.handleAPICall(req, res));
+
+// update user avatar url
+app.put('/avatar', (req, res) => { avatar.updateAvatar(req, res, db)});
 
 
 app.listen(3000, () => {
