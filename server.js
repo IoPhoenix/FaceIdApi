@@ -22,10 +22,8 @@ const avatar = require('./controllers/avatar');
 const db = knex({
     client: 'pg',
     connection: {
-      host : '127.0.0.1', // localhost
-      user : 'olga',
-      password : '',
-      database : 'faceid' // < createdb 'faceid'
+      connectionString : process.env.DATABASE_URL, // localhost:127.0.0.1
+      ssl: true
     }
 });
 
