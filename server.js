@@ -74,6 +74,6 @@ app.post('/imageurl', (req, res) => image.handleAPICall(req, res));
 app.put('/avatar', (req, res) => { avatar.updateAvatar(req, res, db)});
 
 
-app.listen(3000, () => {
-    console.log('App is running');
+app.listen(process.env.PORT || 3000, () => {
+    console.log(`App is running on ${process.end.PORT}`);
 })
