@@ -53,7 +53,7 @@ app.use(cors());
 } */
 
 // root route
-app.get('/', (req, res) => { res.send(database.users)});
+app.get('/', (req, res) => { res.send('it is working')});
 
 //  signin: check existing user info
 app.post('/signin', (req, res) => { signin.handleSignin(req, res, db, bcrypt)});
@@ -75,5 +75,5 @@ app.put('/avatar', (req, res) => { avatar.updateAvatar(req, res, db)});
 
 
 app.listen(process.env.PORT || 3000, () => {
-    console.log(`App is running on ${process.end.PORT}`);
+    console.log(`App is running on ${process.env.PORT}`);
 })
