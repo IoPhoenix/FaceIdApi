@@ -8,7 +8,8 @@ const handleSignin = (req, res, db, bcrypt) => {
     db.select('email', 'hash').from('login')
     .where('email', '=', email)
     .then(data => {
-        //compare entered password with hashed password in database 
+
+      //compare entered password with hashed password in database 
       const isValid = bcrypt.compareSync(password, data[0].hash);
       if (isValid) {
         return db.select('*').from('users')
@@ -16,14 +17,14 @@ const handleSignin = (req, res, db, bcrypt) => {
           .then(user => {
             res.json(user[0])
           })
-          .catch(err => res.status(400).json('Cannot get user'));
+          .catch(err => res.status(400).json('Cannot find email'));
       } else {
-        res.status(400).json('Wrong credentials');
+        res.status(400).json('Password does not match');
       }
     })
      .catch(err => res.status(400).json('Wrong credentials'));
 }
 
 module.exports = {
-    handleSignin: handleSignin
+    handleSignin
 }

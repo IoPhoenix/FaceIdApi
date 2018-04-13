@@ -5,7 +5,7 @@ const updateAvatar = (req, res, db) => {
         .where('id', '=', id)
         .update({avatar: avatarUrl})
         .returning('avatar')
-        .then(url => {
+        .then(data => {
           res.json('success')
         })
         .catch(err => {
