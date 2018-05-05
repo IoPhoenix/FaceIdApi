@@ -16,7 +16,7 @@ const knex = require('knex');
 const register = require('./controllers/register');
 const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
-const changeProfile = require('./controllers/changeProfile');
+const updateProfile = require('./controllers/updateProfile');
 const image = require('./controllers/image');
 const avatar = require('./controllers/avatar');
 
@@ -64,7 +64,7 @@ app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcry
 app.get('/profile/:id', (req, res) => { profile.getProfile(req, res, db)})
 
 // profile: change user info in database
-app.put('/updateProfile/', (req, res) => { profile.updateProfile(req, res, db)})
+app.put('/updateProfile/', (req, res) => { updateProfile.updateProfile(req, res, db)})
 
 // image: inscrese # of checked images from a certain user
 app.put('/image', (req, res) => { image.increaseNumberOfEntries(req, res, db)})
