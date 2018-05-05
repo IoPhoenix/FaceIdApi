@@ -6,7 +6,7 @@ const updateProfile = (req, res, db) => {
         .update({name: newName})
         .returning('name')
         .then(data => {
-          res.json('success')
+          res.json(data)
         })
         .catch(err => {
             console.log(err);
