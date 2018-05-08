@@ -3,7 +3,8 @@ const updateProfile = (req, res, db) => {
 
     db('users')
         .where('id', '=', id)
-        .update({name: newName, email: newEmail})
+        .update({name: newName})
+        .update({email: newEmail})
         .returning('name')
         .then(data => {
           res.json(data)
