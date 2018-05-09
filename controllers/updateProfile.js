@@ -5,7 +5,8 @@ const updateProfile = (req, res, db) => {
     db('users')
         .where('id', '=', id)
         .update({name: newName})
-        .then(() => {
+        // .update({email: newEmail})
+        .then(data => {
             db('login')
                 .select('id')
                 .where('email', '=', newEmail)
@@ -20,7 +21,7 @@ const updateProfile = (req, res, db) => {
                 })
                 // .where('id', '=', id)
                 // .update({email: newEmail})
-                .returning('email')
+                // .returning('email')
                 .then(data => {
                     res.json(data)
                 })
