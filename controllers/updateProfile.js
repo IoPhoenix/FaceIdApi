@@ -8,7 +8,7 @@ const updateProfile = (req, res, db) => {
         .update({email: newEmail})
         .then(data => {
             db('login')
-                .select()
+                .select('id')
                 .where('email', '=', newEmail)
                 .then((rows) => {
                     if (rows.length === 0) {
