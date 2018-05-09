@@ -6,11 +6,11 @@ const updateProfile = (req, res, db) => {
         .where('id', '=', id)
         .update({name: newName})
         .update({email: newEmail})
-        .returning('email')
-        .then(updatedEmail => {
+        .then(data => {
             db('login')
                 .where('id', '=', id)
-                .update({email: updatedEmail})
+                .update({email: newEmail})
+                .returing('name', 'email')
                 .then(data => {
                     res.json(data)
                 })
