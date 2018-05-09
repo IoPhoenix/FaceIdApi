@@ -13,7 +13,7 @@ const updateProfile = (req, res, db) => {
                 .then((rows) => {
                     if (rows.length === 0) {
                         // no matching email found
-                        return db('login').where('id', '=', id).update({email: newEmail}).returning('email')
+                        return db('login').where('id', '=', id).update({email: newEmail})
                     } else {
                         // return or throw - duplicate name found
                         return 'Duplicate email found'
@@ -21,13 +21,13 @@ const updateProfile = (req, res, db) => {
                 })
                 // .where('id', '=', id)
                 // .update({email: newEmail})
-                // .returning('email')
+                .returning('email')
                 .then(data => {
                     res.json(data)
                 })
                 .catch(err => {
                     console.log(err);
-                    res.status(400).json('Unable to update your email');
+                    res.status(400).json(err);
                 });
         })
         .catch(err => {
