@@ -7,8 +7,17 @@ const updateProfile = (req, res, db) => {
         .update({name: newName})
         .update({email: newEmail})
         .returning('email')
-        .then(data => {
-          res.json(data)
+        .then(updatedEmail => {
+            db('login')
+                .where('id', '=', id)
+                .update({email: updatedEmail})
+                .then(data => {
+                    res.json(data)
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(400).json(err);
+                });
         })
         .catch(err => {
             console.log(err);
