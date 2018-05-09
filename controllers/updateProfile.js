@@ -27,12 +27,12 @@ const updateProfile = (req, res, db) => {
                 })
                 .catch(err => {
                     console.log(err);
-                    res.status(400).json(err);
+                    res.status(400).json('Unable to update your email');
                 });
         })
         .catch(err => {
             console.log(err);
-            res.status(400).json('Unable to update your details');
+            res.status(400).json(err);
         });
 }
 
