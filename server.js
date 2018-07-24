@@ -22,8 +22,10 @@ const avatar = require('./controllers/avatar');
 
 const db = knex({
     client: 'pg',
+ 
+
     connection: {
-      connectionString : process.env.DATABASE_URL, // localhost:127.0.0.1
+      connectionString : process.env.DATABASE_URL,
       ssl: true
     }
 });
@@ -52,7 +54,10 @@ app.use(cors());
 } */
 
 // root route
-app.get('/', (req, res) => { res.send('it is working')});
+app.get('/', (req, res) => { 
+    console.log('server is on');
+    res.send('it is working');
+});
 
 //  signin: check existing user info
 app.post('/signin', (req, res) => { signin.handleSignin(req, res, db, bcrypt)});
@@ -63,8 +68,11 @@ app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcry
 // profile: get user info from database
 app.get('/profile/:id', (req, res) => { profile.getProfile(req, res, db)})
 
-// profile: change user info in database
-app.put('/updateProfile/', (req, res) => { updateProfile.updateProfile(req, res, db)})
+// profile: change user name in database
+app.put('/updateName/', (req, res) => { updateProfile.updateName(req, res, db)})
+
+// profile: change user email in database
+app.put('/updateEmail/', (req, res) => { updateProfile.updateEmail(req, res, db)})
 
 // image: inscrese # of checked images from a certain user
 app.put('/image', (req, res) => { image.increaseNumberOfEntries(req, res, db)})
