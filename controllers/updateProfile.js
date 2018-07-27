@@ -20,7 +20,6 @@ const updateName = (req, res, db) => {
 const updateEmail = (req, res, db) => {
     // check that new email doesn't exist in the database
     const { id, oldEmail, newEmail } = req.body;
-    console.log('id: ', id, 'oldEmail: ', oldEmail, 'newEmail: ', newEmail);
 
      // first check if email already exists
      db('users')
@@ -31,7 +30,6 @@ const updateEmail = (req, res, db) => {
          if (rows.length === 0) {
              return db('login').where('email', '=', oldEmail).update({email: newEmail});
          } else {
-            console.log('Email already exists');
             return 'Email already exists';
          }
      })
@@ -42,7 +40,6 @@ const updateEmail = (req, res, db) => {
              .update({email: newEmail})
      })
      .then(data => {
-            console.log('returned data after email change: ', data);
             res.json('success');
      })
      .catch(err => {
