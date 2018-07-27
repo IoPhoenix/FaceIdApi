@@ -17,8 +17,38 @@ const updateName = (req, res, db) => {
 
 
 
-const updateEmail= (req, res, db) => {
+const updateEmail = (req, res, db) => {
     // check that new email doesn't exist in the database
+    const { id, oldEmail, newEmail } = req.body;
+    console.log('id: ', id, 'oldEmail: ', oldEmail, 'newEmail: ', newEmail);
+
+     // first check if email already exists
+     db('users')
+     .select()
+     .where('email', '=', newEmail)
+     .then(rows => {
+         // if no such email found, update email in login database
+         if (rows.length === 0) {
+             return db('login').where('email', '=', oldEmail).update({email: newEmail});
+         } else {
+            console.log('Email already exists');
+            return 'Email already exists';
+         }
+     })
+     // then update email in users database
+     .then(data => {
+         return db('users')
+             .where('id', '=', id)
+             .update({email: newEmail})
+     })
+     .then(data => {
+            console.log('returned data after email change: ', data);
+            res.json('success');
+     })
+     .catch(err => {
+         console.log(err);
+         res.status(400).json('Error updating email');
+     });
 }
 
 module.exports = {
