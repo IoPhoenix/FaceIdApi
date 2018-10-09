@@ -5,10 +5,22 @@ const app = new Clarifai.App({
 });
 
 const handleAPICall = ((req, res) => {
-    app.models
-        .predict(Clarifai.FACE_DETECT_MODEL, req.body.input)
-        .then(data => res.json(data))
-        .catch(err => res.status(400).json('Error detecting the face'));
+    let input = req.body.input;
+
+    if (input.startsWith('data:image')) {
+        input = input.substr(input.indexOf(',') + 1);
+
+         // send the bytes of an image:
+        app.models
+            .predict(Clarifai.FACE_DETECT_MODEL, { base64: input} )
+            .then(data => res.json(data))
+            .catch(err => res.status(400).json(err));
+    } else {
+        app.models
+            .predict(Clarifai.FACE_DETECT_MODEL, input )
+            .then(data => res.json(data))
+            .catch(err => res.status(400).json(err));
+    }
 })
 
 const increaseNumberOfEntries = (req, res, db) => {

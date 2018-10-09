@@ -6,7 +6,6 @@ const updateName = (req, res, db) => {
         .where('id', '=', id)
         .update({name: newName})
         .then(data => {
-            console.log('data after name change: ', data);
             res.json('success');
         })
         .catch(err => {
