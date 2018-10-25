@@ -94,7 +94,7 @@ app.put('/avatar', (req, res) => { avatar.updateAvatar(req, res, db)});
 
 app.listen(process.env.PORT || 3000, () => {
     console.log(`App is running on ${process.env.PORT}`);
-});
+})
 
 // app.listen(3000, ()=> {
 //     console.log('app is running on port 3000');
