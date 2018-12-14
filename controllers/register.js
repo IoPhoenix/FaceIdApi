@@ -41,7 +41,10 @@ const handleRegister = (req, res, db, bcrypt) => {
           //rollback will return a rejected Promise
           .catch(trx.rollback)
         })
-        .catch(err => res.status(400).json('Cannot register a new user'));
+        .catch(err => {
+          console.log('Error is: ', err);
+          res.status(400).json('Cannot register a new user');
+        });
 }
 
 module.exports = {

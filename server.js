@@ -28,15 +28,6 @@ const db = knex({
     }
 });
 
-// const db = knex({
-//     client: 'pg',
-//     connection: {
-//         host : '127.0.0.1',
-//         user : 'olga',
-//         password : '',
-//         database : 'faceid'
-//     }
-// });
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -74,10 +65,13 @@ app.post('/signin', (req, res) => { signin.handleSignin(req, res, db, bcrypt)});
 app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt)});
 
 // profile: get user info from database
-app.get('/profile/:id', (req, res) => { profile.getProfile(req, res, db)})
+app.get('/profile/:id', (req, res) => { profile.getProfile(req, res, db)});
+
+// profile: get user info from database
+app.delete('/profile/delete', (req, res) => { profile.deleteProfile(req, res, db)});
 
 // profile: change user name in database
-app.put('/updateName/', (req, res) => { updateProfile.updateName(req, res, db)})
+app.put('/updateName', (req, res) => { updateProfile.updateName(req, res, db)})
 
 // profile: change user email in database
 app.put('/updateEmail/', (req, res) => { updateProfile.updateEmail(req, res, db)})
@@ -94,8 +88,4 @@ app.put('/avatar', (req, res) => { avatar.updateAvatar(req, res, db)});
 
 app.listen(process.env.PORT || 3000, () => {
     console.log(`App is running on ${process.env.PORT}`);
-})
-
-// app.listen(3000, ()=> {
-//     console.log('app is running on port 3000');
-// });
+});
