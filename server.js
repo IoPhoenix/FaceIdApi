@@ -20,23 +20,23 @@ const updateProfile = require('./controllers/updateProfile');
 const image = require('./controllers/image');
 const avatar = require('./controllers/avatar');
 
-// const db = knex({
-//     client: 'pg',
-//     connection: {
-//         connectionString : process.env.DATABASE_URL,
-//         ssl: true
-//     }
-// });
-
 const db = knex({
     client: 'pg',
     connection: {
-        host : '127.0.0.1',
-        user : 'olgafomin',
-        password : '',
-        database : 'faceid'
+        connectionString : process.env.DATABASE_URL,
+        ssl: true
     }
 });
+
+// const db = knex({
+//     client: 'pg',
+//     connection: {
+//         host : '127.0.0.1',
+//         user : 'olgafomin',
+//         password : '',
+//         database : 'faceid'
+//     }
+// });
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -95,11 +95,11 @@ app.post('/imageurl', (req, res) => image.handleAPICall(req, res));
 app.put('/avatar', (req, res) => { avatar.updateAvatar(req, res, db)});
 
 
-// app.listen(process.env.PORT || 3000, () => {
-//     console.log(`App is running on ${process.env.PORT}`);
-// });
-
-
-app.listen(3000, ()=> {
-    console.log('app is running on port 3000');
+app.listen(process.env.PORT || 3000, () => {
+    console.log(`App is running on ${process.env.PORT}`);
 });
+
+
+// app.listen(3000, ()=> {
+//     console.log('app is running on port 3000');
+// });
