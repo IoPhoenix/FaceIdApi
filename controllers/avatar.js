@@ -5,10 +5,16 @@ const updateAvatar = (req, res, db) => {
         .where('id', '=', id)
         .update({avatar: avatar})
         .returning('avatar')
-        .then(res.json('success'))
+        .then(data => {
+            res.send({
+                response: data,
+                target: 'avatar',
+                message: 'Success! The avatar was updated'
+            });
+        })
         .catch(err => {
             console.log(err);
-            res.status(400).json('Error getting avatar');
+            res.status(400).json('Something went wrong. Please try again later.');
         });
 }
 

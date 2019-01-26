@@ -5,12 +5,17 @@ const updateName = (req, res, db) => {
     db('users')
         .where('id', '=', id)
         .update({name: newName})
+        .returning('name')
         .then(data => {
-            res.json('success');
+            res.send({
+                response: data,
+                target: 'name',
+                message: 'Success! The name was updated'
+            });
         })
         .catch(err => {
             console.log(err);
-            res.status(400).json('Unable to update name');
+            res.status(400).json('Something went wrong. Please try again later.');
         });
 }
 
@@ -37,13 +42,18 @@ const updateEmail = (req, res, db) => {
          return db('users')
              .where('id', '=', id)
              .update({email: newEmail})
+             .returning('email')
      })
      .then(data => {
-            res.json('success');
+            res.send({
+                response: data,
+                target: 'email',
+                message: 'Success! The email was updated'
+            });
      })
      .catch(err => {
          console.log(err);
-         res.status(400).json('Error updating email');
+         res.status(400).json('Something went wrong. Please try again later.');
      });
 }
 
