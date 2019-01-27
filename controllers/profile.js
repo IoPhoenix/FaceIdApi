@@ -12,6 +12,7 @@ const getProfile =  (req, res, db) => {
       .catch(err => res.status(400).json('Error getting user'))
 }
 
+
 const deleteProfile =  (req, res, db) => {
   const { id, email } = req.body;
 
@@ -31,8 +32,11 @@ const deleteProfile =  (req, res, db) => {
         });
     }
   })
-  .then(response => {
-    res.json('success');
+  .then(data => {
+    res.send({
+      response: data,
+      text: 'Success! Your profile was deleted'
+  });
   })
   .catch(err => {
     console.log('Error is: ', err);

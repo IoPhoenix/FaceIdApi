@@ -10,7 +10,7 @@ const updateName = (req, res, db) => {
             res.send({
                 response: data,
                 target: 'name',
-                message: 'Success! The name was updated'
+                text: 'Success! The name was updated'
             });
         })
         .catch(err => {
@@ -48,7 +48,7 @@ const updateEmail = (req, res, db) => {
             res.send({
                 response: data,
                 target: 'email',
-                message: 'Success! The email was updated'
+                text: 'Success! The email was updated'
             });
      })
      .catch(err => {

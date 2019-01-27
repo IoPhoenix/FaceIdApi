@@ -9,7 +9,7 @@ const updateAvatar = (req, res, db) => {
             res.send({
                 response: data,
                 target: 'avatar',
-                message: 'Success! The avatar was updated'
+                text: 'Success! The avatar was updated'
             });
         })
         .catch(err => {
