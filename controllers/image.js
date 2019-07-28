@@ -7,6 +7,9 @@ const app = new Clarifai.App({
 const handleAPICall = ((req, res) => {
     let input = req.body.input;
 
+    console.log('Received image url: ', input);
+
+
     if (input.startsWith('data:image')) {
         input = input.substr(input.indexOf(',') + 1);
 
@@ -25,16 +28,24 @@ const handleAPICall = ((req, res) => {
 
 const increaseNumberOfEntries = (req, res, db) => {
     const { id } = req.body;
+
+    console.log('Increasing number of entries...');
     
     db('users')
         .where('id', '=', id)
         .increment('entries', 1)
         .returning('entries')
-        .then(entries => {
-            res.json(entries[0]);
+        .then(data => {
+            res.send({
+                response: data,
+                target: 'entries',
+                text: 'Success! The # of entries was updated'
+            });
         })
-        .catch(err => res.status(400).json('Cannot get entries'))
-  ;
+        .catch(err => {
+            console.log(err);
+            res.status(400).json('Cannot get entries.');
+        });
 }
 
 module.exports = {
